@@ -361,6 +361,96 @@ List<Map> allQuoteData = [
     "author": "Benjamin Disraeli",
     "category": "Success"
   },
+  {
+    "quote": "Be fearless in the pursuit of what sets your soul on fire.",
+    "author": "Jennifer Lee",
+    "category": "Passion"
+  },
+  {
+    "quote": "Believe in your heart that you're meant to live a life full of passion, purpose, magic and miracles.",
+    "author": "Roy Bennett",
+    "category": "Passion"
+  },
+  {
+    "quote": "Motivation is a fire from within. If someone else tries to light that fire under you, chances are it will burn very briefly.",
+    "author": "Stephen R. Covey",
+    "category": "Passion"
+  },
+  {
+    "quote": "True passion attracts. If you have passion in your business, the right people will be attracted to your team.",
+    "author": "Robert T. Kiyosaki",
+    "category": "Passion"
+  },
+  {
+    "quote": "You have to have a passion for your work. How can we expect people to be passionate if you, as their coach, does not have a passion?",
+    "author": "Catherine Pulsifer",
+    "category": "Passion"
+  },
+  {
+    "quote": "Purpose may point you in the right direction but it's passion that propels you.",
+    "author": "Travis McAshan",
+    "category": "Passion"
+  },
+  {
+    "quote": "Passion is the genesis of genius.",
+    "author": "Anthony Robbins",
+    "category": "Passion"
+  },
+  {
+    "quote": "It is only the great hearted who can be true friends. The mean and cowardly, can never know what true friendship means.",
+    "author": "Charles Kingsley",
+    "category": "Loyalty"
+  },
+  {
+    "quote": "I can't expect loyalty from the army if I do not give it.l",
+    "author": "George C. Marshal",
+    "category": "Loyalty"
+  },
+  {
+    "quote": "Where the battle rages, there the loyalty of the soldier is proved.",
+    "author": "Martin Luther King",
+    "category": "Loyalty"
+  },
+  {
+    "quote": "Loyalty that is bought with money, may be overcome by money.",
+    "author": "Seneca",
+    "category": "Loyalty"
+  },
+  {
+    "quote": "You give loyalty, you'll get it back. You give love, you'll get it back.",
+    "author": "Tommy Lasorda",
+    "category": "Loyalty"
+  },
+  {
+    "quote": "I'm not a big fan of having my loyalty called into question.",
+    "author": "Chris Eigeman",
+    "category": "Loyalty"
+  },
+  {
+    "quote": "Loyalty is what we seek in friendship.",
+    "author": "Marcus Tullius Cicero",
+    "category": "Loyalty"
+  },
+  {
+    "quote": "There is no friend as loyal as a book.",
+    "author": "Ernest Hemingway",
+    "category": "Loyalty"
+  },
+  {
+    "quote": "There is no friend as loyal as a book.",
+    "author": "Ernest Hemingway",
+    "category": "Loyalty"
+  },
+  {
+    "quote": "We are all in the same boat, in a stormy sea, and we owe each other a terrible loyalty.",
+    "author": "G.K. Chesterton",
+    "category": "Loyalty"
+  },
+  {
+    "quote": "The whole point of loyalty was not to change: stick with those who stuck with you.",
+    "author": "Larry McMurtry",
+    "category": ""
+  },
   // {
   //   "quote": "",
   //   "author": "",
