@@ -449,7 +449,92 @@ List<Map> allQuoteData = [
   {
     "quote": "The whole point of loyalty was not to change: stick with those who stuck with you.",
     "author": "Larry McMurtry",
-    "category": ""
+    "category": "Loyalty"
+  },
+  {
+    "quote": "Never above you. Never below you. Always beside you.",
+    "author": "Walter Winchell",
+    "category": "Love"
+  },
+  {
+    "quote": "Falling in love consists merely in uncorking the imagination and bottling the common sense.",
+    "author": "Helen Rowland",
+    "category": "Love"
+  },
+  {
+    "quote": "In all the world, there is no love for you like mine.",
+    "author": "Maya Angelou",
+    "category": "Love"
+  },
+  {
+    "quote": "I will love you my whole life. You and no other.",
+    "author": "Braveheart",
+    "category": "Love"
+  },
+  {
+    "quote": "All that you are is all that I'll ever need.",
+    "author": "Ed Sheeran",
+    "category": "Love"
+  },
+  {
+    "quote": "I love you right up to the moon — and back.",
+    "author": "Sam McBratney",
+    "category": "Love"
+  },
+  {
+    "quote": "You never lose by loving. You always lose by holding back.",
+    "author": "Barbara De Angelis",
+    "category": "Love"
+  },
+  {
+    "quote": "You are my sun, my moon, and all my stars.",
+    "author": "E. E. Cummings",
+    "category": "Love"
+  },
+  {
+    "quote": "There is no joy without gratitude.",
+    "author": "Brené Brown",
+    "category": "Gratitude"
+  },
+  {
+    "quote": "You have no cause for anything but gratitude and joy.",
+    "author": "Buddha",
+    "category": "Gratitude"
+  },
+  {
+    "quote": "The struggle ends when gratitude begins.",
+    "author": "Neale Donald Walsch",
+    "category": "Gratitude"
+  },
+  {
+    "quote": "A grateful mind is a great mind which eventually attracts to itself great things.",
+    "author": "Plato",
+    "category": "Gratitude"
+  },
+  {
+    "quote": "There is always something to be thankful for. So let gratitude be an attitude.",
+    "author": "Rubyanne",
+    "category": "Gratitude"
+  },
+  {
+    "quote": "Gratitude doesn't change the scenery. It merely washes clean the glass you look through so you can clearly see the colors.",
+    "author": "Richelle E. Goodrich",
+    "category": "Gratitude"
+  },
+  {
+    "quote": "Gratitude paints little smiley faces on everything it touches.",
+    "author": "Richelle E. Goodrich",
+    "category": "Gratitude"
+  },
+  {
+    "quote": "Enjoy the little things, for one day you may look back and realize they were the big things.",
+    "author": "Robert Brault",
+    "category": "Gratitude"
+  },
+  {
+    "quote": "Gratitude highlights the good in what is.",
+    "author": "Richelle E. Goodrich",
+    "category": "Gratitude"
   },
   // {
   //   "quote": "",
