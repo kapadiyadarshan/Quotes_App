@@ -1,4 +1,7 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
+import 'package:lorem_ipsum/lorem_ipsum.dart';
 import 'package:quotes_app/utils/colors_utils.dart';
 import 'package:quotes_app/utils/quotes_utils.dart';
 
@@ -12,15 +15,36 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
 
   String SelectedCategory = "";
+  Random r = Random();
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-      onWillPop: () async {
+      onWillPop: () async{
         bool willPop = await showDialog(
           context: context,
-          builder: (context) => AlertDialog(),
+          builder: (context) => AlertDialog(
+            title: const Text("Are You Sure to Exit?"),
+            content: Text(
+              loremIpsum(words: 10),
+            ),
+            actions: [
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(true);
+                  },
+                  child: const Text("Yes")
+              ),
+              TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(false);
+                  },
+                  child: const Text("No")
+              ),
+            ],
+          ),
         );
+        return willPop;
       },
       child: Scaffold(
         appBar: AppBar(
