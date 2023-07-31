@@ -17,6 +17,43 @@ class _HomePageState extends State<HomePage> {
   String SelectedCategory = "";
   Random r = Random();
 
+  getQuote()
+  {
+    int index = r.nextInt(allQuoteData.length);
+    Future.delayed(const Duration(milliseconds: 500),() {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text("Good Morning"),
+          titleTextStyle: TextStyle(
+              color: Colors.grey.shade100,
+              fontWeight: FontWeight.bold,
+              fontSize: 24
+          ),
+          content: Text(allQuote[index].quote),
+          contentTextStyle: TextStyle(
+              color: MyColor.Theme1
+          ),
+          backgroundColor: Colors.grey.shade500,
+          actions: [
+            ElevatedButton(
+                onPressed: (){
+                  Navigator.of(context).pop();
+                },
+                child: const Text("Go to App")
+            )
+          ],
+        ),
+      );
+    },);
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getQuote();
+  }
+
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
@@ -25,21 +62,36 @@ class _HomePageState extends State<HomePage> {
           context: context,
           builder: (context) => AlertDialog(
             title: const Text("Are You Sure to Exit?"),
-            content: Text(
-              loremIpsum(words: 10),
+            titleTextStyle: TextStyle(
+              color: Colors.grey.shade100,
+              fontWeight: FontWeight.bold,
+              fontSize: 24
             ),
+            icon: Icon(
+              Icons.add_alert,
+              size: 64,
+              color: Colors.grey.shade100,
+            ),
+            backgroundColor: Colors.grey.shade500,
+            actionsAlignment: MainAxisAlignment.center,
             actions: [
               ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pop(true);
                   },
-                  child: const Text("Yes")
+                  child: Text("Yes",
+                    style: TextStyle(
+                      color: MyColor.Theme1
+                    ),)
               ),
               TextButton(
                   onPressed: () {
                     Navigator.of(context).pop(false);
                   },
-                  child: const Text("No")
+                  child: Text("No",
+                    style: TextStyle(
+                      color: MyColor.Theme2
+                    ),)
               ),
             ],
           ),
