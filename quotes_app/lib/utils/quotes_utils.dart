@@ -549,4 +549,4 @@ List<Quote> allQuote = allQuoteData
     )
     .toList();
 
-List allCategories = allQuote.map((e) => e.category).toSet().toList();
+List allCategories = allQuoteData.map((e) => e["category"]).toSet().toList();

@@ -1,7 +1,9 @@
 import 'dart:math';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:lorem_ipsum/lorem_ipsum.dart';
+import 'package:quotes_app/models/quote_model.dart';
 import 'package:quotes_app/utils/colors_utils.dart';
 import 'package:quotes_app/utils/quotes_utils.dart';
 
@@ -16,6 +18,8 @@ class _HomePageState extends State<HomePage> {
 
   String SelectedCategory = "";
   Random r = Random();
+  List<Quote> randomQuotes = allQuote;
+  bool isGrid = false;
 
   getQuote()
   {
@@ -23,20 +27,22 @@ class _HomePageState extends State<HomePage> {
     Future.delayed(const Duration(milliseconds: 500),() {
       showDialog(
         context: context,
-        builder: (context) => AlertDialog(
+        builder: (context) => CupertinoAlertDialog(
+
           title: const Text("Good Morning"),
-          titleTextStyle: TextStyle(
-              color: Colors.grey.shade100,
-              fontWeight: FontWeight.bold,
-              fontSize: 24
-          ),
+          // titleTextStyle: TextStyle(
+          //     color: Colors.grey.shade300,
+          //     fontWeight: FontWeight.bold,
+          //     fontSize: 24
+          // ),
           content: Text(allQuote[index].quote),
-          contentTextStyle: TextStyle(
-              color: MyColor.Theme1
-          ),
-          backgroundColor: Colors.grey.shade500,
+          // contentTextStyle: TextStyle(
+          //     color: MyColor.Theme1,
+          //     fontSize: 14
+          // ),
+          // backgroundColor: Colors.grey.shade500,
           actions: [
-            ElevatedButton(
+            TextButton(
                 onPressed: (){
                   Navigator.of(context).pop();
                 },
@@ -52,6 +58,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     super.initState();
     getQuote();
+    randomQuotes.shuffle();
   }
 
   @override
@@ -60,22 +67,22 @@ class _HomePageState extends State<HomePage> {
       onWillPop: () async{
         bool willPop = await showDialog(
           context: context,
-          builder: (context) => AlertDialog(
+          builder: (context) => CupertinoAlertDialog(
             title: const Text("Are You Sure to Exit?"),
-            titleTextStyle: TextStyle(
-              color: Colors.grey.shade100,
-              fontWeight: FontWeight.bold,
-              fontSize: 24
-            ),
-            icon: Icon(
-              Icons.add_alert,
-              size: 64,
-              color: Colors.grey.shade100,
-            ),
-            backgroundColor: Colors.grey.shade500,
-            actionsAlignment: MainAxisAlignment.center,
+            // titleTextStyle: TextStyle(
+            //   color: Colors.grey.shade100,
+            //   fontWeight: FontWeight.bold,
+            //   fontSize: 24
+            // ),
+            // icon: Icon(
+            //   Icons.add_alert,
+            //   size: 64,
+            //   color: Colors.grey.shade100,
+            // ),
+            // backgroundColor: Colors.grey.shade500,
+            // actionsAlignment: MainAxisAlignment.center,
             actions: [
-              ElevatedButton(
+              TextButton(
                   onPressed: () {
                     Navigator.of(context).pop(true);
                   },
@@ -90,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                   },
                   child: Text("No",
                     style: TextStyle(
-                      color: MyColor.Theme2
+                      color: MyColor.Theme1
                     ),)
               ),
             ],
@@ -104,11 +111,14 @@ class _HomePageState extends State<HomePage> {
           actions: [
             IconButton(
                 onPressed: () {
-
+                  setState(() {
+                    isGrid = !isGrid;
+                  });
                 },
-                icon: const Icon(
-                  Icons.grid_view_rounded
-                ),),
+                icon: (isGrid) 
+                      ? const Icon(CupertinoIcons.list_dash)
+                      : const Icon(CupertinoIcons.square_grid_2x2_fill)
+            ),
           ],
           backgroundColor: MyColor.Theme1,
           foregroundColor: MyColor.Theme2,
@@ -121,7 +131,33 @@ class _HomePageState extends State<HomePage> {
                 scrollDirection: Axis.horizontal,
                 physics: const BouncingScrollPhysics(),
                 child: Row(
-                  children: allCategories
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          SelectedCategory = "All";
+                        });
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(8),
+                        margin: const EdgeInsets.all(4),
+
+                        decoration: BoxDecoration(
+                          color: (SelectedCategory == "All") ? MyColor.Theme2 : MyColor.Theme1,
+                          borderRadius: BorderRadius.circular(10),
+                          border: Border.all(
+                              color: MyColor.Theme2
+                          ),
+                        ),
+                        child: Text("All",
+                          style: TextStyle(
+                            color: (SelectedCategory == "All") ? MyColor.Theme1 : MyColor.Theme2,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                          ),),
+                      ),
+                    ),
+                    ...allCategories
                       .map(
                           (e) => GestureDetector(
                             onTap: () {
@@ -148,12 +184,71 @@ class _HomePageState extends State<HomePage> {
                               ),),
                             ),
                           )
-                  ).toList(),
+                  ).toList()],
                 ),
               ),
               Expanded(
-                  child: SingleChildScrollView()
-              )
+                  child: (isGrid)
+                      ? Container()
+                      : (SelectedCategory == "All")
+                            ? ListView(
+                              children: List.generate(
+                                  randomQuotes.length, (index) => Card(
+                                    color: Colors.grey.shade300,
+                                    child: ListTile(
+                                      title: Text(
+                                        randomQuotes[index].quote,
+                                        textAlign: TextAlign.center,
+                                      ),
+                                      titleTextStyle: TextStyle(
+                                        color: MyColor.Theme1,
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700
+                                      ),
+                                      subtitle: Column(
+                                        mainAxisAlignment: MainAxisAlignment.start,
+                                        children: [
+                                          const SizedBox(
+                                            height: 12,
+                                          ),
+                                          Text("- ${randomQuotes[index].author}")
+                                        ],
+                                      ),
+                              ),
+                                  )
+                              ),
+                            )
+                            : ListView(
+                                children: List.generate(
+                                    allQuote.length, (index) =>
+                                      (allQuote[index].category == SelectedCategory)
+                                        ? Card(
+                                            color: Colors.grey.shade300,
+                                            child: ListTile(
+                                              title: Text(
+                                                randomQuotes[index].quote,
+                                                textAlign: TextAlign.center,
+                                              ),
+                                              titleTextStyle: TextStyle(
+                                                  color: MyColor.Theme1,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w700
+                                              ),
+                                              subtitle: Column(
+                                                mainAxisAlignment: MainAxisAlignment.start,
+                                                children: [
+                                                  const SizedBox(
+                                                    height: 12,
+                                                  ),
+                                                  Text("- ${randomQuotes[index].author}")
+                                                ],
+                                              ),
+                                            ),
+                                          )
+                                        : Container()
+                                ),
+                  )
+                  )
             ],
           ),
         ),
