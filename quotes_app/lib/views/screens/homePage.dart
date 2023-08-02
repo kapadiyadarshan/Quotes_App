@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:lorem_ipsum/lorem_ipsum.dart';
 import 'package:quotes_app/models/quote_model.dart';
 import 'package:quotes_app/utils/colors_utils.dart';
@@ -16,7 +17,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  String SelectedCategory = "";
+  String SelectedCategory = "All";
   Random r = Random();
   List<Quote> randomQuotes = allQuote;
   bool isGrid = false;
@@ -68,7 +69,7 @@ class _HomePageState extends State<HomePage> {
         bool willPop = await showDialog(
           context: context,
           builder: (context) => CupertinoAlertDialog(
-            title: const Text("Are You Sure to Exit?"),
+            title: const Text("Are you sure to exit?"),
             // titleTextStyle: TextStyle(
             //   color: Colors.grey.shade100,
             //   fontWeight: FontWeight.bold,
@@ -82,7 +83,7 @@ class _HomePageState extends State<HomePage> {
             // backgroundColor: Colors.grey.shade500,
             // actionsAlignment: MainAxisAlignment.center,
             actions: [
-              TextButton(
+              CupertinoButton(
                   onPressed: () {
                     Navigator.of(context).pop(true);
                   },
@@ -91,7 +92,7 @@ class _HomePageState extends State<HomePage> {
                       color: MyColor.Theme1
                     ),)
               ),
-              TextButton(
+              CupertinoButton(
                   onPressed: () {
                     Navigator.of(context).pop(false);
                   },
@@ -127,6 +128,7 @@ class _HomePageState extends State<HomePage> {
           padding: const EdgeInsets.all(12),
           child: Column(
             children: [
+              //Category row
               SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 physics: const BouncingScrollPhysics(),
@@ -189,7 +191,85 @@ class _HomePageState extends State<HomePage> {
               ),
               Expanded(
                   child: (isGrid)
-                      ? Container()
+                      ? SingleChildScrollView(
+                        child: StaggeredGrid.count(
+                          crossAxisCount: 2,
+                          children: List.generate(
+                            randomQuotes.length, (index) => SelectedCategory == "All"
+                              ? StaggeredGridTile.count(
+                                  crossAxisCellCount: 1,
+                                  mainAxisCellCount: (index % 2 == 1) ? 1 : 1.5,
+                                  child: Card(
+                                    color: MyColor.Theme2,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(12),
+                                      child: Column(
+                                        children: [
+                                          const Spacer(),
+                                          Text(
+                                            randomQuotes[index].quote,
+                                            textAlign: TextAlign.center,
+                                            maxLines: 5,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                                color: MyColor.Theme1,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w700
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 12,
+                                          ),
+                                          Text("- ${randomQuotes[index].author}",
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          const Spacer(),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                          )
+                              : Visibility(
+                                visible: SelectedCategory == allQuote[index].category,
+                                child: StaggeredGridTile.count(
+                                  crossAxisCellCount: 1,
+                                  mainAxisCellCount: (index % 2 == 1) ? 1 : 1.5,
+                                  child: Card(
+                                    color: MyColor.Theme2,
+                                    child: Padding(
+                                      padding: const EdgeInsets.all(12),
+                                      child: Column(
+                                        children: [
+                                          const Spacer(),
+                                          Text(
+                                            allQuote[index].quote,
+                                            textAlign: TextAlign.center,
+                                            maxLines: 5,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                                color: MyColor.Theme1,
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.w700
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            height: 12,
+                                          ),
+                                          Text("- ${allQuote[index].author}",
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          const Spacer(),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                )
+                          )
+                          ),
+                        ),
+                      )
                       : (SelectedCategory == "All")
                             ? ListView(
                               children: List.generate(
