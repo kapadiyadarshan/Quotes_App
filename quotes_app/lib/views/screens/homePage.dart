@@ -7,6 +7,7 @@ import 'package:lorem_ipsum/lorem_ipsum.dart';
 import 'package:quotes_app/models/quote_model.dart';
 import 'package:quotes_app/utils/colors_utils.dart';
 import 'package:quotes_app/utils/quotes_utils.dart';
+import 'package:quotes_app/utils/route_utils.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -199,33 +200,40 @@ class _HomePageState extends State<HomePage> {
                               ? StaggeredGridTile.count(
                                   crossAxisCellCount: 1,
                                   mainAxisCellCount: (index % 2 == 1) ? 1 : 1.5,
-                                  child: Card(
-                                    color: MyColor.Theme2,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(12),
-                                      child: Column(
-                                        children: [
-                                          const Spacer(),
-                                          Text(
-                                            randomQuotes[index].quote,
-                                            textAlign: TextAlign.center,
-                                            maxLines: 5,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                                color: MyColor.Theme1,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w700
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        Navigator.of(context).pushNamed(MyRoute.DetailPage,arguments: randomQuotes[index]);
+                                      });
+                                    },
+                                    child: Card(
+                                      color: MyColor.Theme2,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(12),
+                                        child: Column(
+                                          children: [
+                                            const Spacer(),
+                                            Text(
+                                              randomQuotes[index].quote,
+                                              textAlign: TextAlign.center,
+                                              maxLines: 5,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                  color: MyColor.Theme1,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w700
+                                              ),
                                             ),
-                                          ),
-                                          const SizedBox(
-                                            height: 12,
-                                          ),
-                                          Text("- ${randomQuotes[index].author}",
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                          const Spacer(),
-                                        ],
+                                            const SizedBox(
+                                              height: 12,
+                                            ),
+                                            Text("- ${randomQuotes[index].author}",
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                            const Spacer(),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -234,34 +242,41 @@ class _HomePageState extends State<HomePage> {
                                 visible: SelectedCategory == allQuote[index].category,
                                 child: StaggeredGridTile.count(
                                   crossAxisCellCount: 1,
-                                  mainAxisCellCount: (index % 2 == 1) ? 1 : 1.5,
-                                  child: Card(
-                                    color: MyColor.Theme2,
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(12),
-                                      child: Column(
-                                        children: [
-                                          const Spacer(),
-                                          Text(
-                                            allQuote[index].quote,
-                                            textAlign: TextAlign.center,
-                                            maxLines: 5,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                                color: MyColor.Theme1,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w700
+                                  mainAxisCellCount: (index % 2 == 1) ? 1.2 : 1.2,
+                                  child: GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        Navigator.of(context).pushNamed(MyRoute.DetailPage,arguments: allQuote[index]);
+                                      });
+                                    },
+                                    child: Card(
+                                      color: MyColor.Theme2,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(12),
+                                        child: Column(
+                                          children: [
+                                            const Spacer(),
+                                            Text(
+                                              allQuote[index].quote,
+                                              textAlign: TextAlign.center,
+                                              maxLines: 5,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: TextStyle(
+                                                  color: MyColor.Theme1,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w700
+                                              ),
                                             ),
-                                          ),
-                                          const SizedBox(
-                                            height: 12,
-                                          ),
-                                          Text("- ${allQuote[index].author}",
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                          ),
-                                          const Spacer(),
-                                        ],
+                                            const SizedBox(
+                                              height: 12,
+                                            ),
+                                            Text("- ${allQuote[index].author}",
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                            const Spacer(),
+                                          ],
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -273,28 +288,35 @@ class _HomePageState extends State<HomePage> {
                       : (SelectedCategory == "All")
                             ? ListView(
                               children: List.generate(
-                                  randomQuotes.length, (index) => Card(
-                                    color: Colors.grey.shade300,
-                                    child: ListTile(
-                                      title: Text(
-                                        randomQuotes[index].quote,
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      titleTextStyle: TextStyle(
-                                        color: MyColor.Theme1,
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w700
-                                      ),
-                                      subtitle: Column(
-                                        mainAxisAlignment: MainAxisAlignment.start,
-                                        children: [
-                                          const SizedBox(
-                                            height: 12,
-                                          ),
-                                          Text("- ${randomQuotes[index].author}")
-                                        ],
-                                      ),
+                                  randomQuotes.length, (index) => GestureDetector(
+                                    onTap: () {
+                                      setState(() {
+                                        Navigator.of(context).pushNamed(MyRoute.DetailPage,arguments: randomQuotes[index]);
+                                      });
+                                    },
+                                    child: Card(
+                                      color: Colors.grey.shade300,
+                                      child: ListTile(
+                                        title: Text(
+                                          randomQuotes[index].quote,
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        titleTextStyle: TextStyle(
+                                          color: MyColor.Theme1,
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700
+                                        ),
+                                        subtitle: Column(
+                                          mainAxisAlignment: MainAxisAlignment.start,
+                                          children: [
+                                            const SizedBox(
+                                              height: 12,
+                                            ),
+                                            Text("- ${randomQuotes[index].author}")
+                                          ],
+                                        ),
                               ),
+                                    ),
                                   )
                               ),
                             )
@@ -302,29 +324,36 @@ class _HomePageState extends State<HomePage> {
                                 children: List.generate(
                                     allQuote.length, (index) =>
                                       (allQuote[index].category == SelectedCategory)
-                                        ? Card(
-                                            color: Colors.grey.shade300,
-                                            child: ListTile(
-                                              title: Text(
-                                                randomQuotes[index].quote,
-                                                textAlign: TextAlign.center,
-                                              ),
-                                              titleTextStyle: TextStyle(
-                                                  color: MyColor.Theme1,
-                                                  fontSize: 16,
-                                                  fontWeight: FontWeight.w700
-                                              ),
-                                              subtitle: Column(
-                                                mainAxisAlignment: MainAxisAlignment.start,
-                                                children: [
-                                                  const SizedBox(
-                                                    height: 12,
-                                                  ),
-                                                  Text("- ${randomQuotes[index].author}")
-                                                ],
+                                        ? GestureDetector(
+                                          onTap: () {
+                                            setState(() {
+                                              Navigator.of(context).pushNamed(MyRoute.DetailPage,arguments: allQuote[index]);
+                                            });
+                                          },
+                                          child: Card(
+                                              color: Colors.grey.shade300,
+                                              child: ListTile(
+                                                title: Text(
+                                                  allQuote[index].quote,
+                                                  textAlign: TextAlign.center,
+                                                ),
+                                                titleTextStyle: TextStyle(
+                                                    color: MyColor.Theme1,
+                                                    fontSize: 16,
+                                                    fontWeight: FontWeight.w700
+                                                ),
+                                                subtitle: Column(
+                                                  mainAxisAlignment: MainAxisAlignment.start,
+                                                  children: [
+                                                    const SizedBox(
+                                                      height: 12,
+                                                    ),
+                                                    Text("- ${allQuote[index].author}")
+                                                  ],
+                                                ),
                                               ),
                                             ),
-                                          )
+                                        )
                                         : Container()
                                 ),
                   )

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:quotes_app/utils/route_utils.dart';
+import 'package:quotes_app/views/screens/detailsPage.dart';
 import 'package:quotes_app/views/screens/homePage.dart';
 
 void main()
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
       initialRoute: MyRoute.HomePage,
       routes: {
         MyRoute.HomePage : (context) => const HomePage(),
+        MyRoute.DetailPage : (context) => const DetailPage(),
       },
     );
   }
