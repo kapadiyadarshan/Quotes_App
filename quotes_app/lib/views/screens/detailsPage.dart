@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quotes_app/models/quote_model.dart';
 import 'package:quotes_app/utils/colors_utils.dart';
@@ -14,10 +16,21 @@ class _DetailPageState extends State<DetailPage> {
   
   List<Color> ColorsList = [MyColor.Theme1,Colors.white,...Colors.primaries];
   Color fontColor = MyColor.Theme1;
+
+  // create some values
+  Color pickerColor = Color(0xff443a49);
+
+  void changeColor(Color color) {
+    setState(() => pickerColor = color);
+  }
   
   String bgImage = "https://e0.pxfuel.com/wallpapers/156/840/desktop-wallpaper-pure-simple-art-blank-colors-ipad.jpg";
 
+  int fontSize = 24;
+  int fontweight = 3;
+
   TextStyle text = GoogleFonts.abel();
+
   int n = 0; // fontcolor
   int m = 0; // bgColor
   int o = 0; // fontFamily
@@ -40,7 +53,7 @@ class _DetailPageState extends State<DetailPage> {
     GoogleFonts.kanit(),
     GoogleFonts.hindSiliguri(),
     GoogleFonts.lobster(),
-    GoogleFonts.abel()
+    GoogleFonts.abel(), 
   ];
   
   @override
@@ -52,8 +65,23 @@ class _DetailPageState extends State<DetailPage> {
       appBar: AppBar(
         title: const Text("Quote Details"),
         centerTitle: true,
-        backgroundColor: MyColor.Theme1,
-        foregroundColor: MyColor.Theme2,
+        actions: [
+            IconButton(
+            onPressed: () {
+              setState(() {
+                int fontSize = 24;
+                int fontweight = 3;
+                Color fontColor = MyColor.Theme1;
+                String bgImage = "https://e0.pxfuel.com/wallpapers/156/840/desktop-wallpaper-pure-simple-art-blank-colors-ipad.jpg";
+                TextStyle text = GoogleFonts.abel();
+              });
+            },
+            icon: const Icon(
+              CupertinoIcons.restart
+            ),
+          ),
+        ],
+        foregroundColor: MyColor.Theme1,
       ),
       body: Padding(
         padding: const EdgeInsets.all(12),
@@ -88,7 +116,8 @@ class _DetailPageState extends State<DetailPage> {
                     textAlign: TextAlign.center,
                     style: text.merge(
                       TextStyle(
-                        fontSize: 28,
+                        fontSize: fontSize.toDouble(),
+                        fontWeight: FontWeight.values[fontweight],
                         color: fontColor
                       )
                     )
@@ -115,11 +144,189 @@ class _DetailPageState extends State<DetailPage> {
             const SizedBox(
               height: 18,
             ),
+            Row(
+              children: [
+                //Font Size
+                Container(
+                  height: 180,
+                  width: 190,
+                  padding: const EdgeInsets.all(12),
+
+                  decoration: BoxDecoration(
+                      color: MyColor.Theme2,
+                      borderRadius: BorderRadius.circular(50),
+                      boxShadow: const [
+                        BoxShadow(
+                            color: Colors.grey,
+                            blurRadius: 8,
+                            offset: Offset(2, 2)
+                        )
+                      ]
+                  ),
+                  child: Column(
+                    children: [
+                      const Spacer(),
+                      const Text(
+                        "Font Size",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      const Spacer(),
+                      Text("${fontSize}",
+                      style: TextStyle(
+                        color: MyColor.Theme1,
+                        fontSize: 36,
+                      ),),
+                      const Spacer(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  (fontSize==36) ? null : fontSize++;
+                                });
+                              }, 
+                              icon: const Icon(
+                                CupertinoIcons.add_circled_solid,
+                                  size: 36,
+                              )
+                          ),
+                          SizedBox(
+                            width: 12,
+                          ),
+                          IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  (fontSize==10) ? null : fontSize--;
+                                });
+                              },
+                              icon: const Icon(
+                                CupertinoIcons.minus_circle_fill,
+                                size: 36,
+                              )
+                          ),
+                        ],
+                      ),
+                      const Spacer(),
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  width: 18,
+                ),
+                //Font weight
+                Container(
+                  height: 180,
+                  width: 190,
+                  padding: const EdgeInsets.all(12),
+
+                  decoration: BoxDecoration(
+                      color: MyColor.Theme2,
+                      borderRadius: BorderRadius.circular(50),
+                      boxShadow: const [
+                        BoxShadow(
+                            color: Colors.grey,
+                            blurRadius: 8,
+                            offset: Offset(2, 2)
+                        )
+                      ]
+                  ),
+                  child: Column(
+                    children: [
+                      const Spacer(),
+                      const Text(
+                        "Font Weight",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold
+                        ),
+                      ),
+                      const Spacer(),
+                      Text("Aa",
+                        style: TextStyle(
+                          color: MyColor.Theme1,
+                          fontSize: 36,
+                          fontWeight: FontWeight.values[fontweight]
+                        ),),
+                      const Spacer(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  (fontweight==8) ? null : fontweight++;
+                                });
+                              },
+                              icon: const Icon(
+                                CupertinoIcons.add_circled_solid,
+                                size: 36,
+                              )
+                          ),
+                          const SizedBox(
+                            width: 12,
+                          ),
+                          IconButton(
+                              onPressed: () {
+                                setState(() {
+                                  (fontweight==0) ? null : fontweight--;
+                                });
+                              },
+                              icon: const Icon(
+                                CupertinoIcons.minus_circle_fill,
+                                size: 36,
+                              )
+                          ),
+                        ],
+                      ),
+                      const Spacer(),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(
+              height: 18,
+            ),
+            //Change font colour
             GestureDetector(
               onTap: () {
                 setState(() {
-                  n++;
-                  fontColor = ColorsList[n % (ColorsList.length-1)];
+                  showDialog(
+                    barrierDismissible: false,
+                      context: context,
+                      builder: (context) =>
+                        AlertDialog(
+                          title: const Text("Pick a Color"),
+                          content: SingleChildScrollView(
+                            child: ColorPicker(
+                                pickerColor: pickerColor,
+                                onColorChanged: changeColor,
+                            ),
+                          ),
+                          backgroundColor: MyColor.Theme2,
+                          actions: [
+                            ElevatedButton(
+                                onPressed: () {
+                                  setState(() {
+                                    fontColor = pickerColor;
+                                    Navigator.of(context).pop();
+                                  });
+                                },
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: MyColor.Theme2,
+                                  foregroundColor: MyColor.Theme1
+                                ),
+                                child: const Text("Got it"),
+                            )
+                          ],
+                        )
+                  );
                 });
               },
               child: Container(
@@ -163,6 +370,7 @@ class _DetailPageState extends State<DetailPage> {
             const SizedBox(
               height: 18,
             ),
+            //Change Background
             GestureDetector(
               onTap: () {
                 setState(() {
@@ -211,6 +419,7 @@ class _DetailPageState extends State<DetailPage> {
             const SizedBox(
               height: 18,
             ),
+            //Change font family
             GestureDetector(
               onTap: () {
                 setState(() {

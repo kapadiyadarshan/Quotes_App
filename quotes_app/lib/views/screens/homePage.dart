@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
   String SelectedCategory = "All";
   Random r = Random();
   List<Quote> randomQuotes = allQuote;
-  bool isGrid = false;
+  bool isGrid = true;
 
   getQuote()
   {
@@ -199,7 +199,7 @@ class _HomePageState extends State<HomePage> {
                             randomQuotes.length, (index) => SelectedCategory == "All"
                               ? StaggeredGridTile.count(
                                   crossAxisCellCount: 1,
-                                  mainAxisCellCount: (index % 2 == 1) ? 1 : 1.5,
+                                  mainAxisCellCount: (index % 2 == 1) ? 1.2 : 1.2,
                                   child: GestureDetector(
                                     onTap: () {
                                       setState(() {
