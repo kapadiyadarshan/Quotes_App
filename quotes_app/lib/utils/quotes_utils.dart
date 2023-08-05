@@ -122,6 +122,36 @@ List<Map> allQuoteData = [
     "category": "Success"
   },
   {
+    "quote": "The only thing limiting your aspiration is your imagination.",
+    "author": "Stephen Richards",
+    "category": "Success"
+  },
+  {
+    "quote": "When you only focus on your goals you never see any obstacles.",
+    "author": "Stephen Richards",
+    "category": "Success"
+  },
+  {
+    "quote": "Nobody learns what he can do except by trying.",
+    "author": "Seneca",
+    "category": "Success"
+  },
+  {
+    "quote": "Don't die without fulfilling your purpose.",
+    "author": "Jaachynma N.E. Agu",
+    "category": "Success"
+  },
+  {
+    "quote": "My ability is greater than my disability.",
+    "author": "Nikki Rowe",
+    "category": "Success"
+  },
+  {
+    "quote": "Average is common. Excellence is rare.",
+    "author": "Izey Victoria Odiase",
+    "category": "Success"
+  },
+  {
     "quote": "Be fearless in the pursuit of what sets your soul on fire.",
     "author": "Jennifer Lee",
     "category": "Passion"
@@ -139,6 +169,31 @@ List<Map> allQuoteData = [
   {
     "quote": "Passion is the genesis of genius.",
     "author": "Anthony Robbins",
+    "category": "Passion"
+  },
+  {
+    "quote": "Never underestimate the power of passion.",
+    "author": "Eve Sawyer",
+    "category": "Passion"
+  },
+  {
+    "quote": "Chase your passion, not your pension.",
+    "author": "Denis Waitley",
+    "category": "Passion"
+  },
+  {
+    "quote": "Our passion is our strength.",
+    "author": "Billie Joe Armstrong",
+    "category": "Passion"
+  },
+  {
+    "quote": "Let the beauty of what you love be what you do.",
+    "author": "Rumi",
+    "category": "Passion"
+  },
+  {
+    "quote": "You break me the hardest, make me the strongest, and keep me the softest.",
+    "author": "Coco J. Ginger",
     "category": "Passion"
   },
   {

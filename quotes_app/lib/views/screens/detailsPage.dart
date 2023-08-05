@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:quotes_app/models/quote_model.dart';
@@ -13,8 +14,7 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
-  
-  List<Color> ColorsList = [MyColor.Theme1,Colors.white,...Colors.primaries];
+  List<Color> ColorsList = [MyColor.Theme1, Colors.white, ...Colors.primaries];
   Color fontColor = MyColor.Theme1;
 
   // create some values
@@ -23,8 +23,9 @@ class _DetailPageState extends State<DetailPage> {
   void changeColor(Color color) {
     setState(() => pickerColor = color);
   }
-  
-  String bgImage = "https://e0.pxfuel.com/wallpapers/156/840/desktop-wallpaper-pure-simple-art-blank-colors-ipad.jpg";
+
+  String bgImage =
+      "https://e0.pxfuel.com/wallpapers/156/840/desktop-wallpaper-pure-simple-art-blank-colors-ipad.jpg";
 
   int fontSize = 24;
   int fontweight = 3;
@@ -53,12 +54,11 @@ class _DetailPageState extends State<DetailPage> {
     GoogleFonts.kanit(),
     GoogleFonts.hindSiliguri(),
     GoogleFonts.lobster(),
-    GoogleFonts.abel(), 
+    GoogleFonts.abel(),
   ];
-  
+
   @override
   Widget build(BuildContext context) {
-
     Quote quote = ModalRoute.of(context)!.settings.arguments as Quote;
 
     return Scaffold(
@@ -66,19 +66,18 @@ class _DetailPageState extends State<DetailPage> {
         title: const Text("Quote Details"),
         centerTitle: true,
         actions: [
-            IconButton(
+          IconButton(
             onPressed: () {
               setState(() {
-                int fontSize = 24;
-                int fontweight = 3;
-                Color fontColor = MyColor.Theme1;
-                String bgImage = "https://e0.pxfuel.com/wallpapers/156/840/desktop-wallpaper-pure-simple-art-blank-colors-ipad.jpg";
-                TextStyle text = GoogleFonts.abel();
+                fontSize = 24;
+                fontweight = 3;
+                fontColor = MyColor.Theme1;
+                bgImage =
+                    "https://e0.pxfuel.com/wallpapers/156/840/desktop-wallpaper-pure-simple-art-blank-colors-ipad.jpg";
+                text = GoogleFonts.abel();
               });
             },
-            icon: const Icon(
-              CupertinoIcons.restart
-            ),
+            icon: const Icon(CupertinoIcons.restart),
           ),
         ],
         foregroundColor: MyColor.Theme1,
@@ -91,36 +90,31 @@ class _DetailPageState extends State<DetailPage> {
               height: 360,
               width: double.infinity,
               padding: const EdgeInsets.all(12),
-              
               decoration: BoxDecoration(
-                color: MyColor.Theme2,
-                borderRadius: BorderRadius.circular(30),
-                image: DecorationImage(
-                    image: NetworkImage(bgImage),
-                    fit: BoxFit.cover
-                ),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.white,
-                    blurRadius: 5,
-                    offset: Offset(5, 5),
-                  )
-                ]
-              ),
+                  color: MyColor.Theme2,
+                  borderRadius: BorderRadius.circular(30),
+                  image: DecorationImage(
+                      image: NetworkImage(bgImage), fit: BoxFit.cover),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.white,
+                      blurRadius: 5,
+                      offset: Offset(5, 5),
+                    )
+                  ]),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   const Spacer(),
-                  Text(
+                  SelectableText(
                     quote.quote,
                     textAlign: TextAlign.center,
                     style: text.merge(
                       TextStyle(
-                        fontSize: fontSize.toDouble(),
-                        fontWeight: FontWeight.values[fontweight],
-                        color: fontColor
-                      )
-                    )
+                          fontSize: fontSize.toDouble(),
+                          fontWeight: FontWeight.values[fontweight],
+                          color: fontColor),
+                    ),
                   ),
                   const Spacer(),
                   Row(
@@ -130,10 +124,8 @@ class _DetailPageState extends State<DetailPage> {
                         "-${quote.author}",
                         textAlign: TextAlign.center,
                         style: text.merge(
-                          TextStyle(
-                            color: fontColor
-                          )
-                        )
+                          TextStyle(color: fontColor),
+                        ),
                       ),
                     ],
                   ),
@@ -151,17 +143,16 @@ class _DetailPageState extends State<DetailPage> {
                   height: 180,
                   width: 190,
                   padding: const EdgeInsets.all(12),
-
                   decoration: BoxDecoration(
-                      color: MyColor.Theme2,
-                      borderRadius: BorderRadius.circular(50),
-                      boxShadow: const [
-                        BoxShadow(
-                            color: Colors.grey,
-                            blurRadius: 8,
-                            offset: Offset(2, 2)
-                        )
-                      ]
+                    color: MyColor.Theme2,
+                    borderRadius: BorderRadius.circular(50),
+                    boxShadow: const [
+                      BoxShadow(
+                        color: Colors.grey,
+                        blurRadius: 8,
+                        offset: Offset(2, 2),
+                      ),
+                    ],
                   ),
                   child: Column(
                     children: [
@@ -170,44 +161,44 @@ class _DetailPageState extends State<DetailPage> {
                         "Font Size",
                         textAlign: TextAlign.center,
                         style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold
-                        ),
+                            fontSize: 16, fontWeight: FontWeight.bold),
                       ),
                       const Spacer(),
-                      Text("${fontSize}",
-                      style: TextStyle(
-                        color: MyColor.Theme1,
-                        fontSize: 36,
-                      ),),
+                      Text(
+                        "${fontSize}",
+                        style: TextStyle(
+                          color: MyColor.Theme1,
+                          fontSize: 36,
+                        ),
+                      ),
                       const Spacer(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  (fontSize==36) ? null : fontSize++;
-                                });
-                              }, 
-                              icon: const Icon(
-                                CupertinoIcons.add_circled_solid,
-                                  size: 36,
-                              )
+                            onPressed: () {
+                              setState(() {
+                                (fontSize == 36) ? null : fontSize++;
+                              });
+                            },
+                            icon: const Icon(
+                              CupertinoIcons.add_circled_solid,
+                              size: 36,
+                            ),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 12,
                           ),
                           IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  (fontSize==10) ? null : fontSize--;
-                                });
-                              },
-                              icon: const Icon(
-                                CupertinoIcons.minus_circle_fill,
-                                size: 36,
-                              )
+                            onPressed: () {
+                              setState(() {
+                                (fontSize == 10) ? null : fontSize--;
+                              });
+                            },
+                            icon: const Icon(
+                              CupertinoIcons.minus_circle_fill,
+                              size: 36,
+                            ),
                           ),
                         ],
                       ),
@@ -218,74 +209,29 @@ class _DetailPageState extends State<DetailPage> {
                 const SizedBox(
                   width: 18,
                 ),
-                //Font weight
-                Container(
-                  height: 180,
-                  width: 190,
-                  padding: const EdgeInsets.all(12),
-
-                  decoration: BoxDecoration(
-                      color: MyColor.Theme2,
-                      borderRadius: BorderRadius.circular(50),
-                      boxShadow: const [
-                        BoxShadow(
-                            color: Colors.grey,
-                            blurRadius: 8,
-                            offset: Offset(2, 2)
-                        )
-                      ]
-                  ),
-                  child: Column(
-                    children: [
-                      const Spacer(),
-                      const Text(
-                        "Font Weight",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.bold
-                        ),
-                      ),
-                      const Spacer(),
-                      Text("Aa",
-                        style: TextStyle(
-                          color: MyColor.Theme1,
-                          fontSize: 36,
-                          fontWeight: FontWeight.values[fontweight]
-                        ),),
-                      const Spacer(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  (fontweight==8) ? null : fontweight++;
-                                });
-                              },
-                              icon: const Icon(
-                                CupertinoIcons.add_circled_solid,
-                                size: 36,
-                              )
+                ElevatedButton.icon(
+                  onPressed: () async {
+                    Clipboard.setData(
+                      ClipboardData(
+                          text:
+                              "${quote.quote}\n-${quote.author}\n\n\nI've got this exciting quote from : Quotes App"),
+                    ).then(
+                      (value) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: const Text("Quote Copied..."),
+                            behavior: SnackBarBehavior.floating,
+                            backgroundColor: Colors.green.shade300,
                           ),
-                          const SizedBox(
-                            width: 12,
-                          ),
-                          IconButton(
-                              onPressed: () {
-                                setState(() {
-                                  (fontweight==0) ? null : fontweight--;
-                                });
-                              },
-                              icon: const Icon(
-                                CupertinoIcons.minus_circle_fill,
-                                size: 36,
-                              )
-                          ),
-                        ],
-                      ),
-                      const Spacer(),
-                    ],
+                        );
+                      },
+                    );
+                  },
+                  icon: const Icon(Icons.copy),
+                  label: const Text("Copy Clipboard"),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: MyColor.Theme2,
+                    foregroundColor: MyColor.Theme1,
                   ),
                 ),
               ],
@@ -298,20 +244,19 @@ class _DetailPageState extends State<DetailPage> {
               onTap: () {
                 setState(() {
                   showDialog(
-                    barrierDismissible: false,
+                      barrierDismissible: false,
                       context: context,
-                      builder: (context) =>
-                        AlertDialog(
-                          title: const Text("Pick a Color"),
-                          content: SingleChildScrollView(
-                            child: ColorPicker(
+                      builder: (context) => AlertDialog(
+                            title: const Text("Pick a Color"),
+                            content: SingleChildScrollView(
+                              child: ColorPicker(
                                 pickerColor: pickerColor,
                                 onColorChanged: changeColor,
+                              ),
                             ),
-                          ),
-                          backgroundColor: MyColor.Theme2,
-                          actions: [
-                            ElevatedButton(
+                            backgroundColor: MyColor.Theme2,
+                            actions: [
+                              ElevatedButton(
                                 onPressed: () {
                                   setState(() {
                                     fontColor = pickerColor;
@@ -320,19 +265,17 @@ class _DetailPageState extends State<DetailPage> {
                                 },
                                 style: ElevatedButton.styleFrom(
                                   backgroundColor: MyColor.Theme2,
-                                  foregroundColor: MyColor.Theme1
+                                  foregroundColor: MyColor.Theme1,
                                 ),
                                 child: const Text("Got it"),
-                            )
-                          ],
-                        )
-                  );
+                              ),
+                            ],
+                          ));
                 });
               },
               child: Container(
                 height: 50,
                 width: double.infinity,
-
                 decoration: BoxDecoration(
                   color: MyColor.Theme2,
                   borderRadius: BorderRadius.circular(50),
@@ -340,9 +283,9 @@ class _DetailPageState extends State<DetailPage> {
                     BoxShadow(
                       color: Colors.grey,
                       blurRadius: 8,
-                      offset: Offset(2, 2)
-                    )
-                  ]
+                      offset: Offset(2, 2),
+                    ),
+                  ],
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -356,13 +299,11 @@ class _DetailPageState extends State<DetailPage> {
                       width: 8,
                     ),
                     const Text(
-                        "Change Font Colour",
+                      "Change Font Colour",
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold
-                      ),
-                    )
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
                   ],
                 ),
               ),
@@ -381,7 +322,6 @@ class _DetailPageState extends State<DetailPage> {
               child: Container(
                 height: 50,
                 width: double.infinity,
-
                 decoration: BoxDecoration(
                     color: MyColor.Theme2,
                     borderRadius: BorderRadius.circular(50),
@@ -389,10 +329,8 @@ class _DetailPageState extends State<DetailPage> {
                       BoxShadow(
                           color: Colors.grey,
                           blurRadius: 8,
-                          offset: Offset(2, 2)
-                      )
-                    ]
-                ),
+                          offset: Offset(2, 2))
+                    ]),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -407,10 +345,8 @@ class _DetailPageState extends State<DetailPage> {
                     const Text(
                       "Change Background",
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold
-                      ),
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                     )
                   ],
                 ),
@@ -430,7 +366,6 @@ class _DetailPageState extends State<DetailPage> {
               child: Container(
                 height: 50,
                 width: double.infinity,
-
                 decoration: BoxDecoration(
                     color: MyColor.Theme2,
                     borderRadius: BorderRadius.circular(50),
@@ -438,21 +373,15 @@ class _DetailPageState extends State<DetailPage> {
                       BoxShadow(
                           color: Colors.grey,
                           blurRadius: 8,
-                          offset: Offset(2, 2)
-                      )
-                    ]
-                ),
+                          offset: Offset(2, 2))
+                    ]),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     Text(
                       "Aa",
-                      style: text.merge(
-                        const TextStyle(
-                          fontSize: 20
-                        )
-                      ),
+                      style: text.merge(const TextStyle(fontSize: 20)),
                     ),
                     const SizedBox(
                       width: 8,
@@ -460,11 +389,9 @@ class _DetailPageState extends State<DetailPage> {
                     const Text(
                       "Change Font Family",
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold
-                      ),
-                    )
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    ),
                   ],
                 ),
               ),
