@@ -28,7 +28,8 @@ class _DetailPageState extends State<DetailPage> {
       "https://e0.pxfuel.com/wallpapers/156/840/desktop-wallpaper-pure-simple-art-blank-colors-ipad.jpg";
 
   int fontSize = 24;
-  int fontweight = 3;
+  bool fontBold = false;
+  bool fontItalic = false;
 
   TextStyle text = GoogleFonts.abel();
 
@@ -57,6 +58,8 @@ class _DetailPageState extends State<DetailPage> {
     GoogleFonts.abel(),
   ];
 
+  GlobalKey key = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     Quote quote = ModalRoute.of(context)!.settings.arguments as Quote;
@@ -70,7 +73,8 @@ class _DetailPageState extends State<DetailPage> {
             onPressed: () {
               setState(() {
                 fontSize = 24;
-                fontweight = 3;
+                fontBold = false;
+                fontItalic = false;
                 fontColor = MyColor.Theme1;
                 bgImage =
                     "https://e0.pxfuel.com/wallpapers/156/840/desktop-wallpaper-pure-simple-art-blank-colors-ipad.jpg";
@@ -86,130 +90,91 @@ class _DetailPageState extends State<DetailPage> {
         padding: const EdgeInsets.all(12),
         child: Column(
           children: [
-            Container(
-              height: 360,
-              width: double.infinity,
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                  color: MyColor.Theme2,
-                  borderRadius: BorderRadius.circular(30),
-                  image: DecorationImage(
-                      image: NetworkImage(bgImage), fit: BoxFit.cover),
-                  boxShadow: const [
-                    BoxShadow(
-                      color: Colors.white,
-                      blurRadius: 5,
-                      offset: Offset(5, 5),
-                    )
-                  ]),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Spacer(),
-                  SelectableText(
-                    quote.quote,
-                    textAlign: TextAlign.center,
-                    style: text.merge(
-                      TextStyle(
-                          fontSize: fontSize.toDouble(),
-                          fontWeight: FontWeight.values[fontweight],
-                          color: fontColor),
-                    ),
-                  ),
-                  const Spacer(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        "-${quote.author}",
-                        textAlign: TextAlign.center,
-                        style: text.merge(
-                          TextStyle(color: fontColor),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const Spacer(),
-                ],
-              ),
-            ),
-            const SizedBox(
-              height: 18,
-            ),
-            Row(
-              children: [
-                //Font Size
-                Container(
-                  height: 180,
-                  width: 190,
-                  padding: const EdgeInsets.all(12),
-                  decoration: BoxDecoration(
+            RepaintBoundary(
+              key: key,
+              child: Container(
+                height: 360,
+                width: double.infinity,
+                padding: const EdgeInsets.all(12),
+                decoration: BoxDecoration(
                     color: MyColor.Theme2,
-                    borderRadius: BorderRadius.circular(50),
+                    borderRadius: BorderRadius.circular(30),
+                    image: DecorationImage(
+                        image: NetworkImage(bgImage), fit: BoxFit.cover),
                     boxShadow: const [
                       BoxShadow(
-                        color: Colors.grey,
-                        blurRadius: 8,
-                        offset: Offset(2, 2),
+                        color: Colors.white,
+                        blurRadius: 5,
+                        offset: Offset(5, 5),
+                      )
+                    ]),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    const Spacer(),
+                    SelectableText(
+                      quote.quote,
+                      textAlign: TextAlign.center,
+                      style: text.merge(
+                        TextStyle(
+                            fontSize: fontSize.toDouble(),
+                            fontWeight: (fontBold) ? FontWeight.bold : null,
+                            fontStyle: (fontItalic)
+                                ? FontStyle.italic
+                                : FontStyle.normal,
+                            color: fontColor),
                       ),
-                    ],
-                  ),
-                  child: Column(
-                    children: [
-                      const Spacer(),
-                      const Text(
-                        "Font Size",
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      const Spacer(),
-                      Text(
-                        "${fontSize}",
-                        style: TextStyle(
-                          color: MyColor.Theme1,
-                          fontSize: 36,
+                    ),
+                    const Spacer(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          "-${quote.author}",
+                          textAlign: TextAlign.center,
+                          style: text.merge(
+                            TextStyle(color: fontColor),
+                          ),
                         ),
-                      ),
-                      const Spacer(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          IconButton(
-                            onPressed: () {
-                              setState(() {
-                                (fontSize == 36) ? null : fontSize++;
-                              });
-                            },
-                            icon: const Icon(
-                              CupertinoIcons.add_circled_solid,
-                              size: 36,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 12,
-                          ),
-                          IconButton(
-                            onPressed: () {
-                              setState(() {
-                                (fontSize == 10) ? null : fontSize--;
-                              });
-                            },
-                            icon: const Icon(
-                              CupertinoIcons.minus_circle_fill,
-                              size: 36,
-                            ),
-                          ),
-                        ],
-                      ),
-                      const Spacer(),
-                    ],
+                      ],
+                    ),
+                    const Spacer(),
+                  ],
+                ),
+              ),
+            ),
+            const Spacer(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                //Bold
+                IconButton(
+                  onPressed: () {
+                    setState(() {
+                      fontBold = !fontBold;
+                    });
+                  },
+                  icon: const Icon(Icons.format_bold),
+                  style: IconButton.styleFrom(
+                    backgroundColor: MyColor.Theme2,
+                    foregroundColor: MyColor.Theme1,
                   ),
                 ),
-                const SizedBox(
-                  width: 18,
+                //Italic
+                IconButton(
+                  onPressed: () {
+                    setState(() {
+                      fontItalic = !fontItalic;
+                    });
+                  },
+                  icon: const Icon(Icons.format_italic),
+                  style: IconButton.styleFrom(
+                    backgroundColor: MyColor.Theme2,
+                    foregroundColor: MyColor.Theme1,
+                  ),
                 ),
-                ElevatedButton.icon(
+                //Copy
+                IconButton(
                   onPressed: () async {
                     Clipboard.setData(
                       ClipboardData(
@@ -228,7 +193,24 @@ class _DetailPageState extends State<DetailPage> {
                     );
                   },
                   icon: const Icon(Icons.copy),
-                  label: const Text("Copy Clipboard"),
+                  style: IconButton.styleFrom(
+                    backgroundColor: MyColor.Theme2,
+                    foregroundColor: MyColor.Theme1,
+                  ),
+                ),
+                //Save Gallary
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.download),
+                  style: IconButton.styleFrom(
+                    backgroundColor: MyColor.Theme2,
+                    foregroundColor: MyColor.Theme1,
+                  ),
+                ),
+                //share
+                IconButton(
+                  onPressed: () {},
+                  icon: const Icon(Icons.share),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: MyColor.Theme2,
                     foregroundColor: MyColor.Theme1,
@@ -236,9 +218,69 @@ class _DetailPageState extends State<DetailPage> {
                 ),
               ],
             ),
-            const SizedBox(
-              height: 18,
+            const Spacer(),
+            //Font Size
+            Container(
+              height: 100,
+              width: double.infinity,
+              padding: const EdgeInsets.all(6),
+              decoration: BoxDecoration(
+                color: MyColor.Theme2,
+                borderRadius: BorderRadius.circular(50),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.grey,
+                    blurRadius: 8,
+                    offset: Offset(2, 2),
+                  ),
+                ],
+              ),
+              child: Column(
+                children: [
+                  const Text(
+                    "Font Size",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  const Spacer(),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      IconButton(
+                        onPressed: () {
+                          setState(() {
+                            (fontSize == 10) ? null : fontSize--;
+                          });
+                        },
+                        icon: const Icon(
+                          CupertinoIcons.minus_circle_fill,
+                          size: 36,
+                        ),
+                      ),
+                      Text(
+                        "${fontSize}",
+                        style: TextStyle(
+                          color: MyColor.Theme1,
+                          fontSize: 36,
+                        ),
+                      ),
+                      IconButton(
+                        onPressed: () {
+                          setState(() {
+                            (fontSize == 36) ? null : fontSize++;
+                          });
+                        },
+                        icon: const Icon(
+                          CupertinoIcons.add_circled_solid,
+                          size: 36,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
+            const Spacer(),
             //Change font colour
             GestureDetector(
               onTap: () {
@@ -308,9 +350,7 @@ class _DetailPageState extends State<DetailPage> {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 18,
-            ),
+            const Spacer(),
             //Change Background
             GestureDetector(
               onTap: () {
@@ -352,9 +392,7 @@ class _DetailPageState extends State<DetailPage> {
                 ),
               ),
             ),
-            const SizedBox(
-              height: 18,
-            ),
+            const Spacer(),
             //Change font family
             GestureDetector(
               onTap: () {
