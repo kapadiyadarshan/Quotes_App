@@ -1,10 +1,16 @@
+import 'dart:io';
+import 'dart:ui';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:quotes_app/models/quote_model.dart';
 import 'package:quotes_app/utils/colors_utils.dart';
+import 'package:share_extend/share_extend.dart';
 
 class DetailPage extends StatefulWidget {
   const DetailPage({super.key});
@@ -209,7 +215,25 @@ class _DetailPageState extends State<DetailPage> {
                 ),
                 //share
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    final boundary = key.currentContext?.findRenderObject()
+                        as RenderRepaintBoundary?;
+                    final image = await boundary?.toImage(pixelRatio: 12);
+                    final byteData =
+                        await image?.toByteData(format: ImageByteFormat.png);
+                    final imageBytes = byteData?.buffer.asUint8List();
+
+                    if (imageBytes != null) {
+                      final directory =
+                          await getApplicationDocumentsDirectory();
+                      final imagePath =
+                          await File("${directory.path}/quotes_image.png")
+                              .create();
+                      await imagePath.writeAsBytes(imageBytes);
+
+                      ShareExtend.share(imagePath.path, "file");
+                    }
+                  },
                   icon: const Icon(Icons.share),
                   style: ElevatedButton.styleFrom(
                     backgroundColor: MyColor.Theme2,
