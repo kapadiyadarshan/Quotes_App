@@ -7,6 +7,7 @@ import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_colorpicker/flutter_colorpicker.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:image_gallery_saver/image_gallery_saver.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:quotes_app/models/quote_model.dart';
 import 'package:quotes_app/utils/colors_utils.dart';
@@ -106,7 +107,9 @@ class _DetailPageState extends State<DetailPage> {
                     color: MyColor.Theme2,
                     borderRadius: BorderRadius.circular(30),
                     image: DecorationImage(
-                        image: NetworkImage(bgImage), fit: BoxFit.cover),
+                      image: NetworkImage(bgImage),
+                      fit: BoxFit.cover,
+                    ),
                     boxShadow: const [
                       BoxShadow(
                         color: Colors.white,
@@ -206,7 +209,25 @@ class _DetailPageState extends State<DetailPage> {
                 ),
                 //Save Gallary
                 IconButton(
-                  onPressed: () {},
+                  onPressed: () async {
+                    final boundary = key.currentContext?.findRenderObject()
+                        as RenderRepaintBoundary?;
+                    final image = await boundary?.toImage(pixelRatio: 12);
+                    final byteData =
+                        await image?.toByteData(format: ImageByteFormat.png);
+                    final imageBytes = byteData?.buffer.asUint8List();
+
+                    if (imageBytes != null) {
+                      final directory =
+                          await getApplicationDocumentsDirectory();
+                      final imagePath =
+                          await File("${directory.path}/quotes_image.png")
+                              .create();
+                      await imagePath.writeAsBytes(imageBytes);
+
+                      ImageGallerySaver.saveFile(imagePath.path);
+                    }
+                  },
                   icon: const Icon(Icons.download),
                   style: IconButton.styleFrom(
                     backgroundColor: MyColor.Theme2,
@@ -264,7 +285,10 @@ class _DetailPageState extends State<DetailPage> {
                   const Text(
                     "Font Size",
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
                   const Spacer(),
                   Row(
@@ -391,9 +415,10 @@ class _DetailPageState extends State<DetailPage> {
                     borderRadius: BorderRadius.circular(50),
                     boxShadow: const [
                       BoxShadow(
-                          color: Colors.grey,
-                          blurRadius: 8,
-                          offset: Offset(2, 2))
+                        color: Colors.grey,
+                        blurRadius: 8,
+                        offset: Offset(2, 2),
+                      ),
                     ]),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
