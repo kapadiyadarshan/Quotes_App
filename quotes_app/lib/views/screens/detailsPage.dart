@@ -159,9 +159,11 @@ class _DetailPageState extends State<DetailPage> {
                 //Bold
                 IconButton(
                   onPressed: () {
-                    setState(() {
-                      fontBold = !fontBold;
-                    });
+                    setState(
+                      () {
+                        fontBold = !fontBold;
+                      },
+                    );
                   },
                   icon: const Icon(Icons.format_bold),
                   style: IconButton.styleFrom(
@@ -172,9 +174,11 @@ class _DetailPageState extends State<DetailPage> {
                 //Italic
                 IconButton(
                   onPressed: () {
-                    setState(() {
-                      fontItalic = !fontItalic;
-                    });
+                    setState(
+                      () {
+                        fontItalic = !fontItalic;
+                      },
+                    );
                   },
                   icon: const Icon(Icons.format_italic),
                   style: IconButton.styleFrom(
@@ -187,8 +191,9 @@ class _DetailPageState extends State<DetailPage> {
                   onPressed: () async {
                     Clipboard.setData(
                       ClipboardData(
-                          text:
-                              "${quote.quote}\n-${quote.author}\n\n\nI've got this exciting quote from : Quotes App"),
+                        text:
+                            "${quote.quote}\n-${quote.author}\n\n\nI've got this exciting quote from : Quotes App",
+                      ),
                     ).then(
                       (value) {
                         ScaffoldMessenger.of(context).showSnackBar(

@@ -44,10 +44,11 @@ class _HomePageState extends State<HomePage> {
             // backgroundColor: Colors.grey.shade500,
             actions: [
               TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                  child: const Text("Go to App"))
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text("Go to App"),
+              ),
             ],
           ),
         );
@@ -349,8 +350,9 @@ class _HomePageState extends State<HomePage> {
                                           onTap: () {
                                             setState(() {
                                               Navigator.of(context).pushNamed(
-                                                  MyRoute.DetailPage,
-                                                  arguments: allQuote[index]);
+                                                MyRoute.DetailPage,
+                                                arguments: allQuote[index],
+                                              );
                                             });
                                           },
                                           child: Card(
